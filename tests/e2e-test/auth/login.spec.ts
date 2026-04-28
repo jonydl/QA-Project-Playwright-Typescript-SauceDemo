@@ -23,9 +23,7 @@ test.describe('Login Functionality', () => {
     await loginPage.goto();
   });
 
-
   //#region Test Cases
-  //Valid credential login flow
   test('Valid credentials redirection', async () => {
     await loginPage.login(TEST_USERS.validUser.username, TEST_USERS.validUser.password);
     await expect(loginPage.page).toHaveURL('https://www.saucedemo.com/inventory.html');
@@ -50,6 +48,6 @@ test.describe('Login Functionality', () => {
     await loginPage.login(TEST_USERS.lockedOutUser.username, TEST_USERS.lockedOutUser.password);
     await expect(loginPage.page.locator('[data-test="error"]')).toHaveText(ERROR_MESSAGES.lockedOutUserErrorMessage);
   });
-
   //#endregion
+  
 });
