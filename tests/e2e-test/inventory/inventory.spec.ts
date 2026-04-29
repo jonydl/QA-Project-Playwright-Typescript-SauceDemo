@@ -16,11 +16,20 @@ test.describe('Inventory Home Page Functionality', async () => {
     //#region Inventory Page Test Cases
     //Verify that the inventory page loads after sucessful login flow
     test('Inventory page loads sucessfully after login', async ({ page }) => {
+        const inventoryContainer = page.locator('[data-test="inventory-container"]');
+        const itemImage = page.locator('[data-test$="-img-link"]');
+        const itemDescriptionContainer = page.locator('[data-test$="-item-description"]');
+
+
+        await expect(inventoryContainer).toBeVisible();
+        await expect(itemImage.first()).toBeVisible();
+        await expect(itemDescriptionContainer.first()).toBeVisible();
         await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+  
     });
 
     //Verify inventory can be filtered by Name (Z to A)
-    test('Filter inventory by Name (Z to A)', async ({ page }) => {
+    test('Sort inventory by Name (Z to A)', async ({ page }) => {
 
         //Select the dropdown locator and choose the filter Z to A option
         await page.locator('[data-test="product-sort-container"]').selectOption("za");
@@ -42,7 +51,7 @@ test.describe('Inventory Home Page Functionality', async () => {
     });
 
     //Verify inventory can be filtered by Name (A to Z)
-    test('Filter inventory by name (A to Z)', async ({ page }) => {
+    test('Sort inventory by Name (A to Z)', async ({ page }) => {
         //Select the dropdown locator and choose a filter different than the standard (A to Z)
         await page.locator('[data-test="product-sort-container"]').selectOption("za");
 
@@ -55,13 +64,12 @@ test.describe('Inventory Home Page Functionality', async () => {
 
         //Extract the item names as a string array, then sort the array in A to Z order and store it in a new variable
         const sortedNames = await productNames.allTextContents();
-
         expect(sortedNames).toEqual(sortedNames.sort((a, b) => a.localeCompare(b)));
 
     });
 
     //Verify inventory can be filtered by Price (low to high)
-    test('Filter inventory by Price (low to high)', async ({ page }) => {
+    test('Sort inventory by Price (low to high)', async ({ page }) => {
 
         //Select the dropdown locator and choose the filter Price (low to high) option
         await page.locator('[data-test="product-sort-container"]').selectOption('Price (low to high)');
@@ -81,7 +89,7 @@ test.describe('Inventory Home Page Functionality', async () => {
     });
 
     //Verify inventory can be filtered by Price (high to low)
-    test('Filter inventory by Price (high to low)', async ({ page }) => {
+    test('Sort inventory by Price (high to low)', async ({ page }) => {
 
         //Select the dropdown locator and choose the filter Price (high to low) option
         await page.locator('[data-test="product-sort-container"]').selectOption('Price (high to low)');
@@ -101,7 +109,7 @@ test.describe('Inventory Home Page Functionality', async () => {
     });
 
     //Verify that the Twitter, Facebook and Linkedin social media icons redirect to the correct pages
-    test('Twitter icon redirects to Twitter page as a new browser tab', async ({ page }) => {
+    test('Twitter icon opens Twitter page as a new browser tab', async ({ page }) => {
         //Press the twitter button to trigger the popup event
         await page.locator('[data-test="social-twitter"]').click();
 
@@ -114,7 +122,7 @@ test.describe('Inventory Home Page Functionality', async () => {
 
     });
 
-    test('Facebook icon redirects to Facebook page as a new browser tab', async ({ page }) => {
+    test('Facebook icon opens Facebook page as a new browser tab', async ({ page }) => {
         //Press the facebook button to trigger the popup event
         await page.locator('[data-test="social-facebook"]').click();
 
@@ -126,7 +134,7 @@ test.describe('Inventory Home Page Functionality', async () => {
         await expect(newPage).toHaveURL('https://www.facebook.com/saucelabs');
     });
 
-    test('Linkedin icon redirects to Linkedin page as a new browser tab', async ({ page }) => {
+    test('Linkedin icon opens Linkedin page as a new browser tab', async ({ page }) => {
         //Press the linkedin button to trigger the popup event
         await page.locator('[data-test="social-linkedin"]').click();
 
@@ -135,6 +143,6 @@ test.describe('Inventory Home Page Functionality', async () => {
         await newPage.waitForLoadState();
         await expect(newPage).toHaveURL('https://www.linkedin.com/company/sauce-labs/');
     });
-
     //#endregion
+    
 });
