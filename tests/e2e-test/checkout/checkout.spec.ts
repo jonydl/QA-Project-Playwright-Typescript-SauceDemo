@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../../pages/LoginPage';
-import { InventoryPage } from '../../../pages/InventoryPage';
+import { LoginPage } from '../../../fixtures/LoginPage';
+import { InventoryPage } from '../../../fixtures/InventoryPage';
 
 test.describe('Checkout Functionality', async () => {
     let loginPage: LoginPage;
