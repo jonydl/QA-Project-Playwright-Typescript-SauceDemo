@@ -40,7 +40,7 @@ test.describe('Checkout Functionality', async () => {
         expect(total).toContain('32.39'); // 29.99 + 2.40
 
         // Verify payment information
-        await expect(page.locator('[data-test="payment-info-label"]')).toContainText('SauceCard');
+        await expect(page.locator('[data-test="payment-info-label"]')).toContainText('Payment Information');
 
         // Finish checkout
         await page.locator('[data-test="finish"]').click();

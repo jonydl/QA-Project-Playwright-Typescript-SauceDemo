@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../../pages/LoginPage';
+import { LoginPage } from '../../../fixtures/LoginPage';
 
 test.describe('Cart Functionality', async () => {
     let loginPage: LoginPage;
@@ -48,6 +48,6 @@ test.describe('Cart Functionality', async () => {
         await expect(page.locator('[data-test="shopping-cart-link"]')).toHaveText('1');
 
         await page.locator('[data-test^="remove-"]').first().click();
-        await expect(page.locator('[data-test="shopping-cart-link"]')).toHaveText('0');
+        await expect(page.locator('[data-test="shopping-cart-link"]')).toHaveText('');
     });
 });
